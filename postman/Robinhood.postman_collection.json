@@ -1,0 +1,240 @@
+{
+	"info": {
+		"_postman_id": "2c9b6f1f-8bd9-4ff3-9a8c-b20c09b1648a",
+		"name": "Robinhood",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "4330349"
+	},
+	"item": [
+		{
+			"name": "gen-token-jwt",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/robinhood/api/v1/auth/gen-token-jwt",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"robinhood",
+						"api",
+						"v1",
+						"auth",
+						"gen-token-jwt"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "inv-card-save",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2OTc2ODc5NDEsImV4cCI6MTY5NzY5MTU0MSwiY2l0aXplbklEIjoiMTEwMDIwMDkyNTczMSJ9.OJ_Hi42rq0jLXl5uDIJhCAwJ6pcj8xdeShpYrJKSrOo",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"topicName\": \"นัดสัมภาษณ์งาน\",\n    \"topicDesc\": \" 12 ริฟฟ์ สตูดิโอ (RiFF Studio) ประกาศลงทุนสร้างและผลิตหนังแอนิเมชันเรื่องแรกของสตูดิโอ “หนุมานนักรบมนตรา หรือ Hanumaan The Mantra Warrior”\",\n    \"status\": 1,\n    \"userId\": 1\n} ",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/robinhood/api/v1/interview/save",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"robinhood",
+						"api",
+						"v1",
+						"interview",
+						"save"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "inv-comment-save",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2OTc2ODc5NDEsImV4cCI6MTY5NzY5MTU0MSwiY2l0aXplbklEIjoiMTEwMDIwMDkyNTczMSJ9.OJ_Hi42rq0jLXl5uDIJhCAwJ6pcj8xdeShpYrJKSrOo",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"itvCardId\": 12,\n    \"commentDesc\": \"รอตรวจสอบ \",\n    \"userId\": 2\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/robinhood/api/v1/interview/save-comment",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"robinhood",
+						"api",
+						"v1",
+						"interview",
+						"save-comment"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "inv-comment-update",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2OTc2ODc5NDEsImV4cCI6MTY5NzY5MTU0MSwiY2l0aXplbklEIjoiMTEwMDIwMDkyNTczMSJ9.OJ_Hi42rq0jLXl5uDIJhCAwJ6pcj8xdeShpYrJKSrOo",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"itvCard\": 2,\n    \"statusId\": 2,\n    \"userId\": 2\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/robinhood/api/v1/interview/update-status",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"robinhood",
+						"api",
+						"v1",
+						"interview",
+						"update-status"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get-interview-card",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2OTc2ODg2NjksImV4cCI6MTY5NzY5MjI2OSwiY2l0aXplbklEIjoiMTEwMDIwMDkyNTczMSJ9.vIpMv7VoXRba-uGOxEqtebHAFs5BGhY0OO93rNrjpxY",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{BASE_URL}}/robinhood/api/v1/interview",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"robinhood",
+						"api",
+						"v1",
+						"interview"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get-interview-detail",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2OTc1MTI4MjQsImV4cCI6MTY5NzUxNjQyNCwiY2l0aXplbklEIjoiMTEwMDIwMDkyNTczMSJ9.jvOSj3ZjqB9ZEyyJPiIRKB6k7ADM3b7SmyxUzoX4vCM",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/robinhood/api/v1/interview/1",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"robinhood",
+						"api",
+						"v1",
+						"interview",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
