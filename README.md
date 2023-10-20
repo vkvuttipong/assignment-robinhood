@@ -1,4 +1,3 @@
-# assignment-ttb
 ## Getting started
 
 to install docker desxtop
