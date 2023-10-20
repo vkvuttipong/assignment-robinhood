@@ -1,0 +1,22 @@
+{
+  "VERSION": "v1",
+  "jwt_auth": {
+    "JWT_SECRET" : "JMpAE65vyNcMU9tmGI6T6CdPHaBGOZNh"
+  },
+  "redis": {
+    "url" : "redis://localhost:6379"
+  },
+  "crypto": {
+    "algorithm" : "aes-256-ctr",
+    "secretKey" : "vOVH6sdmpNWjRRIqCc7rdxs01lwHzfr3",
+    "iv" : "ecfc37c12bc7c14edde1b83c4a5b6c28"
+  },
+  "PG_DB_CON": {
+    "host": "localhost",
+    "user": "postgres",
+    "password": "mysecretpassword",
+    "port": 5432,
+    "database": "postgres"
+  },
+  "envName": "loc"
+}
