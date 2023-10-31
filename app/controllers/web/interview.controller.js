@@ -49,7 +49,21 @@ exports.getInterviewDetail = async (req, res) => {
   logs.logWebInfo(req);
   try {
     const id = req.params.id;
+    console.log(id)
     let result = await dbService.getInterviewDetail(id)
+
+    return Response.success(res, result);
+  } catch (error) {
+    logs.loggerWeb.error(`getInterviewDetail error : ${error}`);
+    return Response.error(res, error.message);
+  }
+};
+
+exports.getInterviewPagination = async (req, res) => {
+  logs.logWebInfo(req);
+  try {
+    const { pageNumber, pageSize  } = req.query;
+    let result = await dbService.getInterviewPagination(pageNumber,pageSize)
 
     return Response.success(res, result);
   } catch (error) {

@@ -21,7 +21,18 @@ const queryByList = async (text) => {
   return res.rows;
 };
 
+const queryByPagination = async (text) => {
+  const client = new Client({
+    ...dbConfig.pgdb,
+  });
+  await client.connect();
+  const res =  await client.query(query, [pageNumber, pageSize]);
+  await client.end();
+  return res.rows;
+};
+
 module.exports = {
   queryByOne,
   queryByList,
+  queryByPagination
 };

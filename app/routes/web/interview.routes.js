@@ -34,17 +34,25 @@ module.exports = (app, requireBasicAuth) => {
   );
 
   router.get(
-    "/:id",
+    "/detail/:id",
     requireBasicAuth,
-    updateInterviewStatusValidator,
-    expressValidator,
     modelTD.getInterviewDetail
   );
+
+
+  router.get(
+    "/page",
+    requireBasicAuth,
+    modelTD.getInterviewPagination
+  );
+  
 
 
   router.post(
     "/update-status",
     requireBasicAuth,
+    updateInterviewStatusValidator,
+    expressValidator,
     modelTD.updateInterviewStatus
   );
 

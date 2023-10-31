@@ -45,12 +45,13 @@ const getInterviewList = async () => {
 };
 
 
-const getInterviewDetail = async () => {
+const getInterviewDetail = async (id) => {
   try {
     let sql =
       ` SELECT c.comment_desc, m.fullname, c.created_on, c.update_on          `  +
       ` FROM itv_comment c join itv_member m                                  ` +
       ` on m.user_id = c.created_by                                           ` +
+      ` WHERE c.itv_card_id =    ${id}                                        ` +
       ` ORDER BY c.created_on  desc                                           ` ;
       
     return queryByList(sql);
@@ -72,12 +73,29 @@ const updateInterviewStatus = async (rec) => {
   }
 };
 
- 
+
+const getInterviewPagination = async (pageNumber,pageSize) => {
+  try {
+    let sql =
+    ` SELECT c.id,c.topic_name, c.topic_desc, s.status_name, m.fullname, c.created_on, c.update_on          `  +
+    ` FROM itv_card c join itv_status s                                                                ` +
+    ` on c.status = s.id                                                                               ` +
+    ` join itv_member m                                                                                ` +
+    ` on m.user_id = c.created_by                                                                      ` +
+    ` ORDER BY c.created_on                                                                            ` +
+    ` LIMIT ${pageSize}    OFFSET ((${pageNumber} - 1) * ${pageSize})                                  ` ;
+
+    return queryByList(sql);
+  } catch (err) {
+    console.error("getInterviewList error : " + err);
+  }
+};
 
 module.exports = {
   saveInterview,
   saveComment,
   getInterviewList,
   getInterviewDetail,
-  updateInterviewStatus
+  updateInterviewStatus,
+  getInterviewPagination
 };
