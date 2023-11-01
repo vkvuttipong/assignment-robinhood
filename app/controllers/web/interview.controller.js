@@ -67,7 +67,7 @@ exports.getInterviewPagination = async (req, res) => {
 
     return Response.success(res, result);
   } catch (error) {
-    logs.loggerWeb.error(`getInterviewDetail error : ${error}`);
+    logs.loggerWeb.error(`getInterviewPagination error : ${error}`);
     return Response.error(res, error.message);
   }
 };
@@ -79,8 +79,6 @@ exports.updateInterviewStatus = async (req, res) => {
   try {
     const body = req.body;
     let result = await dbService.updateInterviewStatus(body)
-    console.log(result)
-
     return Response.success(res, result);
   } catch (error) {
     logs.loggerWeb.error(`updateInterviewStatus error : ${error}`);

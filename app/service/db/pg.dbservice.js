@@ -1,15 +1,19 @@
-const { Client } = require("pg");
-const dbConfig = require("config");
-const { queryByList, queryByOne } = require("../../config/pg-client.config");
+const { queryByList, queryByOne,queryByPagination } = require("../../config/pg-client.config");
 
 const saveInterview = async (rec) => {
   try {
     let sql =
       ` INSERT INTO itv_card (topic_name, topic_desc, status,created_by, created_on, update_on )          ` +
-      ` VALUES ('${rec.topicName}','${rec.topicDesc}','${rec.status}','${rec.userId}',NOW(),NOW())        ` +
+      ` VALUES ($1,$2,$3,$4,NOW(),NOW())        ` +
       ` RETURNING id   `;
+    
+      let params = [];
+      params.push(rec.topicName);
+      params.push(rec.topicDesc);
+      params.push(rec.status);
+      params.push(rec.userId);
 
-    return queryByOne(sql);
+    return queryByOne(sql,params);
   } catch (err) {
     console.error("saveInterview error : " + err);
   }
@@ -19,10 +23,15 @@ const saveComment = async (rec) => {
   try {
     let sql =
       ` INSERT INTO itv_comment (itv_card_id, comment_desc,created_by, created_on, update_on )          ` +
-      ` VALUES ('${rec.itvCardId}','${rec.commentDesc}', '${rec.userId}',NOW(),NOW())  ` +
+      ` VALUES ($1,$2,$3,NOW(),NOW())                                                                   ` +
       ` RETURNING id   `;
 
-    return queryByOne(sql);
+      let params = [];
+      params.push(rec.itvCardId);
+      params.push(rec.commentDesc);
+      params.push(rec.userId);
+
+      return queryByOne(sql,params);
   } catch (err) {
     console.error("saveInterview error : " + err);
   }
@@ -38,7 +47,7 @@ const getInterviewList = async () => {
       ` on m.user_id = c.created_by                                                                      ` +
       ` ORDER BY c.created_on                                                                            ` ;
 
-    return queryByList(sql);
+    return queryByList(sql,[]);
   } catch (err) {
     console.error("getInterviewList error : " + err);
   }
@@ -48,13 +57,16 @@ const getInterviewList = async () => {
 const getInterviewDetail = async (id) => {
   try {
     let sql =
-      ` SELECT c.comment_desc, m.fullname, c.created_on, c.update_on          `  +
+      ` SELECT c.comment_desc, m.fullname, c.created_on, c.update_on          ` +
       ` FROM itv_comment c join itv_member m                                  ` +
       ` on m.user_id = c.created_by                                           ` +
-      ` WHERE c.itv_card_id =    ${id}                                        ` +
+      ` WHERE c.itv_card_id =    $1                                           ` +
       ` ORDER BY c.created_on  desc                                           ` ;
+
+      let params = [];
+      params.push(id);
       
-    return queryByList(sql);
+    return queryByList(sql,params);
   } catch (err) {
     console.error("getInterviewList error : " + err);
   }
@@ -63,11 +75,15 @@ const getInterviewDetail = async (id) => {
 const updateInterviewStatus = async (rec) => {
   try {
     let sql =
-      ` UPDATE itv_card                                        ` +
-      ` SET status = '${rec.statusId}'  , update_on = now()    ` +
-      ` WHERE  id  = '${rec.itvCard}'                          `;
+      ` UPDATE itv_card                          ` +
+      ` SET status = $1  , update_on = now()     ` +
+      ` WHERE  id  = $2                          ` ;
 
-    return queryByOne(sql);
+      let params = [];
+      params.push(rec.statusId);
+      params.push(rec.itvCard);
+
+      return queryByList(sql,params);
   } catch (err) {
     console.error("updateInterviewStatus error : " + err);
   }
@@ -83,9 +99,13 @@ const getInterviewPagination = async (pageNumber,pageSize) => {
     ` join itv_member m                                                                                ` +
     ` on m.user_id = c.created_by                                                                      ` +
     ` ORDER BY c.created_on                                                                            ` +
-    ` LIMIT ${pageSize}    OFFSET ((${pageNumber} - 1) * ${pageSize})                                  ` ;
+    ` LIMIT $1    OFFSET (($2 - 1) * $1)                                  ` ;
 
-    return queryByList(sql);
+ 
+    let params = [];
+
+
+    return queryByPagination(sql,params,pageNumber,pageSize);
   } catch (err) {
     console.error("getInterviewList error : " + err);
   }
